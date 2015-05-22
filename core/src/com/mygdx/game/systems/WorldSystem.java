@@ -36,7 +36,7 @@ public class WorldSystem extends IteratingSystem {
 
     public WorldSystem() {
         super(family);
-        world = new World(new Vector2(0, -9.8f), true);
+        world = new World(new Vector2(0, 0), true);
 
     }
 
