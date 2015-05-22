@@ -6,24 +6,32 @@
 package com.mygdx.game.components;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 /**
  *
  * @author koriwizz
  */
-public class MovementComponent extends Component implements Poolable {
+public class PlayerComponent extends Component implements Poolable {
 
-    public Vector2 velocity;
+    public int up;
+    public int down;
+    public int left;
+    public int right;
 
-    public MovementComponent(Vector2 v) {
-        velocity = v;
+    public PlayerComponent(int _up, int _down, int _left, int _right) {
+        up = _up;
+        down = _down;
+        left = _left;
+        right = _right;
     }
 
     @Override
     public void reset() {
-        velocity = null;
+        up = 0;
+        down = 0;
+        left = 0;
+        right = 0;
     }
 
 }

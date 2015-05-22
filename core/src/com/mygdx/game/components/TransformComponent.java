@@ -6,6 +6,7 @@
 package com.mygdx.game.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 /**
@@ -14,18 +15,15 @@ import com.badlogic.gdx.utils.Pool.Poolable;
  */
 public class TransformComponent extends Component implements Poolable {
 
-    public float x = 0f;
-    public float y = 0f;
+    public Vector2 position;
 
-    public TransformComponent(float _x, float _y) {
-        x = _x;
-        y = _y;
+    public TransformComponent(Vector2 p) {
+        position = p;
     }
 
     @Override
     public void reset() {
-        x = 0f;
-        y = 0f;
+        position= null;
     }
 
 }

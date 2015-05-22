@@ -18,10 +18,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.components.BodyInfoComponent;
-import com.mygdx.game.components.Components;
 import com.mygdx.game.components.MovementComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.VisualComponent;
+import com.mygdx.game.utility.Components;
 
 /**
  *
@@ -55,8 +55,8 @@ public class WorldSystem extends IteratingSystem {
                 BodyDef bodyDef = bodyInfo.bodyDef;
                 
                 bodyDef.type = BodyDef.BodyType.DynamicBody;
-                bodyDef.position.set((transform.x + texture.getWidth() / 2) / PIXELS_TO_METERS,
-                        (transform.y + texture.getHeight() / 2) / PIXELS_TO_METERS);
+                bodyDef.position.set((transform.position.x + texture.getWidth() / 2) / PIXELS_TO_METERS,
+                        (transform.position.y + texture.getHeight() / 2) / PIXELS_TO_METERS);
 
                 bodyInfo.body = world.createBody(bodyDef);
                 
@@ -102,8 +102,8 @@ public class WorldSystem extends IteratingSystem {
         BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
         Body body = bodyInfo.body;
 
-        transform.x = (body.getPosition().x * PIXELS_TO_METERS) - texture.getWidth() / 2;
-        transform.y = (body.getPosition().y * PIXELS_TO_METERS) - texture.getHeight() / 2;
+        transform.position.x = (body.getPosition().x * PIXELS_TO_METERS) - texture.getWidth() / 2;
+        transform.position.y = (body.getPosition().y * PIXELS_TO_METERS) - texture.getHeight() / 2;
     }
 
 }
