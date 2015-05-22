@@ -42,12 +42,12 @@ public class WorldSystem extends IteratingSystem {
 
     @Override
     public void addedToEngine(Engine engine) {
-
+        super.addedToEngine(engine);
         engine.addEntityListener(family, new EntityListener() {
 
             @Override
             public void entityAdded(Entity entity) {
-
+                
                 TransformComponent transform = Components.transform.get(entity);
                 VisualComponent visual = Components.visual.get(entity);
                 BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
@@ -89,7 +89,7 @@ public class WorldSystem extends IteratingSystem {
     @Override
     public void update(float time) {
         super.update(time);
-        //world.step(1f / 160f, 6, 2);
+        world.step(1f / 160f, 6, 2);
 
     }
 

@@ -10,7 +10,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.components.Components;
 import com.mygdx.game.components.TransformComponent;
@@ -43,6 +45,8 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void update(float time) {
+        Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
+        Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT);
         TransformComponent transform;
         VisualComponent visual;
         camera.update();

@@ -17,8 +17,8 @@ public class VisualComponent extends Component implements Poolable {
 
     public Texture texture = null;
 
-    public VisualComponent(Texture _texture) {
-        texture = _texture;
+    public VisualComponent(Texture t) {
+        texture = t;
     }
 
     @Override
