@@ -8,6 +8,7 @@ package com.mygdx.game.entity_inheritance;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.components.BodyInfoComponent;
 import com.mygdx.game.components.MovementComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.VisualComponent;
@@ -23,6 +24,7 @@ public class Player {
         entity.add(new TransformComponent(0, 0));
         entity.add(new VisualComponent(t));
         entity.add(new MovementComponent(0,0));
+        entity.add(new BodyInfoComponent());
         //t.dispose();
     }
     

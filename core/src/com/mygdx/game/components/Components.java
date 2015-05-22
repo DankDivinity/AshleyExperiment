@@ -15,4 +15,6 @@ public class Components {
 
     public static ComponentMapper<TransformComponent> transform = ComponentMapper.getFor(TransformComponent.class);
     public static ComponentMapper<VisualComponent> visual = ComponentMapper.getFor(VisualComponent.class);
+    public static ComponentMapper<MovementComponent> movement = ComponentMapper.getFor(MovementComponent.class);
+    public static ComponentMapper<BodyInfoComponent> bodyInfo = ComponentMapper.getFor(BodyInfoComponent.class);
 }
