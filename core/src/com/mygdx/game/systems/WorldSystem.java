@@ -28,14 +28,12 @@ import com.mygdx.game.components.VisualComponent;
  * @author koriwizz
  */
 public class WorldSystem extends IteratingSystem {
-
-    static Family family = Family.all(TransformComponent.class, MovementComponent.class, VisualComponent.class, BodyInfoComponent.class).get();
     World world;
     final float PIXELS_TO_METERS = 100f;
 
 
     public WorldSystem() {
-        super(family);
+        super(Family.all(TransformComponent.class, MovementComponent.class, VisualComponent.class, BodyInfoComponent.class).get());
         world = new World(new Vector2(0, 0), true);
 
     }
@@ -43,7 +41,7 @@ public class WorldSystem extends IteratingSystem {
     @Override
     public void addedToEngine(Engine engine) {
         super.addedToEngine(engine);
-        engine.addEntityListener(family, new EntityListener() {
+        engine.addEntityListener(getFamily(), new EntityListener() {
 
             @Override
             public void entityAdded(Entity entity) {
@@ -77,6 +75,7 @@ public class WorldSystem extends IteratingSystem {
                 shape.dispose();
 
                 System.out.println("heyy");
+                
             }
 
             @Override
