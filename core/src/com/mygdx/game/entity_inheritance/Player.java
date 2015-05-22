@@ -25,7 +25,6 @@ public class Player {
         entity.add(new VisualComponent(t));
         entity.add(new MovementComponent(0,0));
         entity.add(new BodyInfoComponent());
-        //t.dispose();??
     }
     
 }
