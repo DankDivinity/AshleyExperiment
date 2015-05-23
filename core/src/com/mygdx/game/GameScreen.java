@@ -17,6 +17,7 @@ import com.mygdx.game.entity_inheritance.Player;
 import com.mygdx.game.systems.PlayerSystem;
 import com.mygdx.game.systems.RenderSystem;
 import com.mygdx.game.systems.WorldSystem;
+import com.mygdx.game.utility.Appliers;
 
 /**
  *
@@ -45,7 +46,7 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(inputs);
         
         Entity player = engine.createEntity();
-        Player.apply(player);
+        Appliers.apply(player,Player.class);
         engine.addEntity(player);
     }
 

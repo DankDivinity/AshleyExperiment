@@ -9,27 +9,20 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.components.BodyInfoComponent;
-import com.mygdx.game.components.MovementComponent;
 import com.mygdx.game.components.PlayerInfoComponent;
-import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.VisualComponent;
 
 /**
  *
  * @author koriwizz
  */
-public class Player {
+public class Player extends Mob {
 
-    public static void apply(Entity entity) {
-        Texture t = new Texture(Gdx.files.internal("farmer.png"));
-        entity.add(new TransformComponent(new Vector2(0, 0)));
-        entity.add(new VisualComponent(t));
-        entity.add(new MovementComponent());
-        entity.add(new BodyInfoComponent());
+    @Override
+    public void apply(Entity entity) {
+        super.apply(entity);
+        entity.getComponent(VisualComponent.class).texture = new Texture(Gdx.files.internal("farmer.png"));
         entity.add(new PlayerInfoComponent(Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT));
-
     }
 
 }
