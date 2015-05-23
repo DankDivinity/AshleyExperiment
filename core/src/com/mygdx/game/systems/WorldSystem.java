@@ -97,11 +97,13 @@ public class WorldSystem extends IteratingSystem {
         
         
         TransformComponent transform = Components.transform.get(entity);
+        MovementComponent movement = Components.movement.get(entity);
         VisualComponent visual = Components.visual.get(entity);
         Texture texture = visual.texture;
         BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
         Body body = bodyInfo.body;
 
+        body.setLinearVelocity(movement.velocity);
         transform.position.x = (body.getPosition().x * PIXELS_TO_METERS) - texture.getWidth() / 2;
         transform.position.y = (body.getPosition().y * PIXELS_TO_METERS) - texture.getHeight() / 2;
     }

@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.components.BodyInfoComponent;
 import com.mygdx.game.components.MovementComponent;
-import com.mygdx.game.components.PlayerComponent;
+import com.mygdx.game.components.PlayerInfoComponent;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.VisualComponent;
 
@@ -28,7 +28,7 @@ public class Player {
         entity.add(new VisualComponent(t));
         entity.add(new MovementComponent(new Vector2(0, 0)));
         entity.add(new BodyInfoComponent());
-        entity.add(new PlayerComponent(Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT));
+        entity.add(new PlayerInfoComponent(Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT));
 
     }
 

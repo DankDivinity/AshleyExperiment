@@ -12,14 +12,14 @@ import com.badlogic.gdx.utils.Pool.Poolable;
  *
  * @author koriwizz
  */
-public class PlayerComponent extends Component implements Poolable {
+public class PlayerInfoComponent extends Component implements Poolable {
 
     public int up;
     public int down;
     public int left;
     public int right;
 
-    public PlayerComponent(int _up, int _down, int _left, int _right) {
+    public PlayerInfoComponent(int _up, int _down, int _left, int _right) {
         up = _up;
         down = _down;
         left = _left;

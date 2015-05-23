@@ -9,28 +9,71 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.InputProcessor;
-import com.mygdx.game.components.PlayerComponent;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.components.MovementComponent;
+import com.mygdx.game.components.PlayerInfoComponent;
+import com.mygdx.game.utility.Components;
 
 /**
  *
  * @author koriwizz
  */
-public class PlayerSystem extends IteratingSystem implements InputProcessor{
+public class PlayerSystem extends IteratingSystem implements InputProcessor {
 
-    public PlayerSystem(){
-        super(Family.all(PlayerComponent.class).get());
+    Array<Boolean> keys;
+    //so if there are a bunch of players input processor wont change keys before
+    //the next player
+    Array<Boolean> processKeys;
+
+    public PlayerSystem() {
+        super(Family.all(PlayerInfoComponent.class).get());
+        keys = new Array<Boolean>(new Boolean[128]);
+        for(int i = 0; i < keys.size; i++){
+            keys.set(i,Boolean.FALSE);
+        }
     }
+
+    @Override
+    public void update(float priority) {
+        processKeys = new Array<Boolean>(keys);
+        super.update(priority);
+    }
+
     @Override
     protected void processEntity(Entity entity, float f) {
+        PlayerInfoComponent playerInfo = Components.playerInfo.get(entity);
+        MovementComponent movement = Components.movement.get(entity);
+        float dy, dx;
+        if (processKeys.get(playerInfo.up)) {
+            dy = 1;
+        } else if (processKeys.get(playerInfo.down)) {
+            dy = -1;
+        } else {
+            dy = 0;
+        }
+
+        if (processKeys.get(playerInfo.left)) {
+            dx = -1;
+        } else if (processKeys.get(playerInfo.right)) {
+            dx = 1;
+        } else {
+            dx = 0;
+        }
+
+        movement.velocity.x = dx;
+        movement.velocity.y = dy;
     }
 
     @Override
     public boolean keyDown(int keycode) {
+        keys.set(keycode, Boolean.TRUE);
+        System.out.println("pressed");
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        keys.set(keycode, Boolean.FALSE);
         return false;
     }
 
@@ -63,5 +106,5 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor{
     public boolean scrolled(int amount) {
         return false;
     }
-    
+
 }

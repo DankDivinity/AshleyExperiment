@@ -7,11 +7,14 @@ package com.mygdx.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entity_inheritance.Player;
+import com.mygdx.game.systems.PlayerSystem;
 import com.mygdx.game.systems.RenderSystem;
 import com.mygdx.game.systems.WorldSystem;
 
@@ -35,6 +38,11 @@ public class GameScreen implements Screen {
 
         engine.addSystem(new RenderSystem(camera, game.batch));
         engine.addSystem(new WorldSystem());
+        engine.addSystem(new PlayerSystem());
+        
+        InputMultiplexer inputs = new InputMultiplexer();
+        inputs.addProcessor(engine.getSystem(PlayerSystem.class));
+        Gdx.input.setInputProcessor(inputs);
         
         Entity player = engine.createEntity();
         Player.apply(player);
