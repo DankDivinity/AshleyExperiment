@@ -9,7 +9,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.game.components.BodyInfoComponent;
 import com.mygdx.game.components.MovementComponent;
 import com.mygdx.game.components.PlayerInfoComponent;
@@ -21,14 +21,14 @@ import com.mygdx.game.utility.Components;
  */
 public class PlayerSystem extends IteratingSystem implements InputProcessor {
 
-    Array<Boolean> keys;
+    SnapshotArray<Boolean> keys;
     //so if there are a bunch of players input processor wont change keys before
     //the next player
-    Array<Boolean> processKeys;
+    Boolean[] processKeys;
 
     public PlayerSystem() {
         super(Family.all(PlayerInfoComponent.class).get());
-        keys = new Array<Boolean>(new Boolean[128]);
+        keys = new SnapshotArray<Boolean>(new Boolean[128]);
         for (int i = 0; i < keys.size; i++) {
             keys.set(i, Boolean.FALSE);
         }
@@ -36,8 +36,9 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
 
     @Override
     public void update(float priority) {
-        processKeys = new Array<Boolean>(keys);
+        processKeys = keys.begin();
         super.update(priority);
+        keys.end();
     }
 
     @Override
@@ -49,17 +50,17 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
         BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
 
         float dy, dx;
-        if (processKeys.get(playerInfo.up)) {
+        if (processKeys[playerInfo.up]) {
             dy = 1;
-        } else if (processKeys.get(playerInfo.down)) {
+        } else if (processKeys[playerInfo.down]) {
             dy = -1;
         } else {
             dy = 0;
         }
 
-        if (processKeys.get(playerInfo.left)) {
+        if (processKeys[playerInfo.left]) {
             dx = -1;
-        } else if (processKeys.get(playerInfo.right)) {
+        } else if (processKeys[playerInfo.right]) {
             dx = 1;
         } else {
             dx = 0;
