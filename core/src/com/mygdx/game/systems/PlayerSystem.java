@@ -10,6 +10,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.components.BodyInfoComponent;
 import com.mygdx.game.components.MovementComponent;
 import com.mygdx.game.components.PlayerInfoComponent;
 import com.mygdx.game.utility.Components;
@@ -25,6 +26,7 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
     //the next player
     Array<Boolean> processKeys;
 
+    
     public PlayerSystem() {
         super(Family.all(PlayerInfoComponent.class).get());
         keys = new Array<Boolean>(new Boolean[128]);
@@ -43,6 +45,10 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
     protected void processEntity(Entity entity, float f) {
         PlayerInfoComponent playerInfo = Components.playerInfo.get(entity);
         MovementComponent movement = Components.movement.get(entity);
+        movement.previousVelocity.x = movement.velocity.x;
+        movement.previousVelocity.y = movement.velocity.y;
+        BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
+        
         float dy, dx;
         if (processKeys.get(playerInfo.up)) {
             dy = 1;
@@ -62,6 +68,8 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
 
         movement.velocity.x = dx;
         movement.velocity.y = dy;
+        
+        
     }
 
     @Override

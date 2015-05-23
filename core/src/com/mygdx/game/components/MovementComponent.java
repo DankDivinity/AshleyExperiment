@@ -16,9 +16,11 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public class MovementComponent extends Component implements Poolable {
 
     public Vector2 velocity;
-
-    public MovementComponent(Vector2 v) {
-        velocity = v;
+    public Vector2 previousVelocity;
+    
+    public MovementComponent() {
+        velocity = new Vector2(0, 0);
+        previousVelocity = new Vector2(velocity);
     }
 
     @Override

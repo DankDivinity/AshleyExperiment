@@ -26,7 +26,7 @@ public class Player {
         Texture t = new Texture(Gdx.files.internal("farmer.png"));
         entity.add(new TransformComponent(new Vector2(0, 0)));
         entity.add(new VisualComponent(t));
-        entity.add(new MovementComponent(new Vector2(0, 0)));
+        entity.add(new MovementComponent());
         entity.add(new BodyInfoComponent());
         entity.add(new PlayerInfoComponent(Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT));
 

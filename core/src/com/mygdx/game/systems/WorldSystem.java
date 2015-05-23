@@ -28,9 +28,9 @@ import com.mygdx.game.utility.Components;
  * @author koriwizz
  */
 public class WorldSystem extends IteratingSystem {
+
     World world;
     final float PIXELS_TO_METERS = 100f;
-
 
     public WorldSystem() {
         super(Family.all(TransformComponent.class, MovementComponent.class, VisualComponent.class, BodyInfoComponent.class).get());
@@ -45,7 +45,7 @@ public class WorldSystem extends IteratingSystem {
 
             @Override
             public void entityAdded(Entity entity) {
-                
+
                 TransformComponent transform = Components.transform.get(entity);
                 VisualComponent visual = Components.visual.get(entity);
                 BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
@@ -53,16 +53,16 @@ public class WorldSystem extends IteratingSystem {
                 Texture texture = visual.texture;
                 bodyInfo.bodyDef = new BodyDef();
                 BodyDef bodyDef = bodyInfo.bodyDef;
-                
+
                 bodyDef.type = BodyDef.BodyType.DynamicBody;
                 bodyDef.position.set((transform.position.x + texture.getWidth() / 2) / PIXELS_TO_METERS,
                         (transform.position.y + texture.getHeight() / 2) / PIXELS_TO_METERS);
 
                 bodyInfo.body = world.createBody(bodyDef);
-                
+
                 bodyInfo.shape = new PolygonShape();
                 PolygonShape shape = bodyInfo.shape;
-                
+
                 shape.setAsBox(texture.getWidth() / 2 / PIXELS_TO_METERS,
                         texture.getHeight() / 2 / PIXELS_TO_METERS);
 
@@ -75,12 +75,12 @@ public class WorldSystem extends IteratingSystem {
                 shape.dispose();
 
                 System.out.println("heyy");
-                
+
             }
 
             @Override
             public void entityRemoved(Entity entity) {
-               
+
             }
         });
     }
@@ -94,18 +94,24 @@ public class WorldSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float f) {
-        
-        
+
         TransformComponent transform = Components.transform.get(entity);
         MovementComponent movement = Components.movement.get(entity);
         VisualComponent visual = Components.visual.get(entity);
         Texture texture = visual.texture;
         BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
         Body body = bodyInfo.body;
-
-        body.setLinearVelocity(movement.velocity);
         transform.position.x = (body.getPosition().x * PIXELS_TO_METERS) - texture.getWidth() / 2;
         transform.position.y = (body.getPosition().y * PIXELS_TO_METERS) - texture.getHeight() / 2;
+
+        //should previousVelocity == newVelocity then this would cancel and
+        //the body will keeps it current velocity
+        //should pv != nv this would take away any velocity added by pv and add the new velocity nv
+        //basically: setV(currentV - preV + newV)
+        //ex: going from 5v to -5v
+        //    setV(5 - 5 + (-5))
+        //    v is now -5
+        bodyInfo.body.setLinearVelocity(bodyInfo.body.getLinearVelocity().sub(movement.previousVelocity).add(movement.velocity));
     }
 
 }
