@@ -1,2 +1,3 @@
 # AshleyExperiment
-Trying to make a game, but Ashley library's IteratingSystem keeps throwing NullPointerException. Help greatly appreciated. New to github too.
+
+Just making a game. May be the 1st of many attempts at a game that will be successful.
