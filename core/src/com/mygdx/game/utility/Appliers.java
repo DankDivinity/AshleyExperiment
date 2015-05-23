@@ -7,7 +7,8 @@ package com.mygdx.game.utility;
 
 import com.badlogic.ashley.core.Entity;
 import com.mygdx.game.entity_inheritance.Applier;
-import com.mygdx.game.entity_inheritance.Player;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,8 +25,19 @@ public class Appliers {
         } catch (IllegalAccessException ex) {
             return;
         }
-        System.out.println(applier instanceof Player);
         applier.apply(entity);
+    }
 
+    public static boolean isInstance(Entity entity, Class<?> someClass) {
+        try {
+            Object obj;
+            obj = Components.applierClass.get(entity).appliedClass.newInstance();
+            return someClass.isInstance(obj);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Applier.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Applier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

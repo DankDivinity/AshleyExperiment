@@ -26,12 +26,11 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
     //the next player
     Array<Boolean> processKeys;
 
-    
     public PlayerSystem() {
         super(Family.all(PlayerInfoComponent.class).get());
         keys = new Array<Boolean>(new Boolean[128]);
-        for(int i = 0; i < keys.size; i++){
-            keys.set(i,Boolean.FALSE);
+        for (int i = 0; i < keys.size; i++) {
+            keys.set(i, Boolean.FALSE);
         }
     }
 
@@ -48,7 +47,7 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
         movement.previousVelocity.x = movement.velocity.x;
         movement.previousVelocity.y = movement.velocity.y;
         BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
-        
+
         float dy, dx;
         if (processKeys.get(playerInfo.up)) {
             dy = 1;
@@ -68,8 +67,7 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
 
         movement.velocity.x = dx;
         movement.velocity.y = dy;
-        
-        
+
     }
 
     @Override

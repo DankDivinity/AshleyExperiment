@@ -6,11 +6,19 @@
 package com.mygdx.game.entity_inheritance;
 
 import com.badlogic.ashley.core.Entity;
+import com.mygdx.game.components.ClassComponent;
+import com.mygdx.game.utility.Components;
 
 /**
  *
  * @author koriwizz
  */
 public abstract class Applier {
-    public abstract void apply(Entity entity);
+
+    public void apply(Entity entity) {
+        entity.add(new ClassComponent());
+        ClassComponent applierClass = Components.applierClass.get(entity);
+        applierClass.appliedClass = getClass();
+    }
+
 }

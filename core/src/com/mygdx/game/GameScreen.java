@@ -40,13 +40,13 @@ public class GameScreen implements Screen {
         engine.addSystem(new RenderSystem(camera, game.batch));
         engine.addSystem(new WorldSystem());
         engine.addSystem(new PlayerSystem());
-        
+
         InputMultiplexer inputs = new InputMultiplexer();
         inputs.addProcessor(engine.getSystem(PlayerSystem.class));
         Gdx.input.setInputProcessor(inputs);
-        
+
         Entity player = engine.createEntity();
-        Appliers.apply(player,Player.class);
+        Appliers.apply(player, Player.class);
         engine.addEntity(player);
     }
 
