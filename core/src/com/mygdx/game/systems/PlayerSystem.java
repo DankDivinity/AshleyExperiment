@@ -10,7 +10,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.mygdx.game.components.BodyInfoComponent;
+import com.mygdx.game.components.MobInfoComponent;
 import com.mygdx.game.components.MovementComponent;
 import com.mygdx.game.components.PlayerInfoComponent;
 import com.mygdx.game.utility.Components;
@@ -47,21 +47,21 @@ public class PlayerSystem extends IteratingSystem implements InputProcessor {
         MovementComponent movement = Components.movement.get(entity);
         movement.previousVelocity.x = movement.velocity.x;
         movement.previousVelocity.y = movement.velocity.y;
-        BodyInfoComponent bodyInfo = Components.bodyInfo.get(entity);
 
+        MobInfoComponent mobInfo = Components.mobInfo.get(entity);
         float dy, dx;
         if (processKeys[playerInfo.up]) {
-            dy = 1;
+            dy = mobInfo.speed;
         } else if (processKeys[playerInfo.down]) {
-            dy = -1;
+            dy = -mobInfo.speed;
         } else {
             dy = 0;
         }
 
         if (processKeys[playerInfo.left]) {
-            dx = -1;
+            dx = -mobInfo.speed;
         } else if (processKeys[playerInfo.right]) {
-            dx = 1;
+            dx = mobInfo.speed;
         } else {
             dx = 0;
         }

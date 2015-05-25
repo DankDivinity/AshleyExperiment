@@ -8,6 +8,7 @@ package com.mygdx.game.utility;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.mygdx.game.components.BodyInfoComponent;
 import com.mygdx.game.components.ClassComponent;
+import com.mygdx.game.components.MobInfoComponent;
 import com.mygdx.game.components.MovementComponent;
 import com.mygdx.game.components.PlayerInfoComponent;
 import com.mygdx.game.components.TransformComponent;
@@ -25,4 +26,5 @@ public class Components {
     public static ComponentMapper<MovementComponent> movement = ComponentMapper.getFor(MovementComponent.class);
     public static ComponentMapper<BodyInfoComponent> bodyInfo = ComponentMapper.getFor(BodyInfoComponent.class);
     public static ComponentMapper<PlayerInfoComponent> playerInfo = ComponentMapper.getFor(PlayerInfoComponent.class);
+    public static ComponentMapper<MobInfoComponent> mobInfo = ComponentMapper.getFor(MobInfoComponent.class);
 }

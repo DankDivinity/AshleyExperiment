@@ -6,7 +6,7 @@
 package com.mygdx.game.utility;
 
 import com.badlogic.ashley.core.Entity;
-import com.mygdx.game.entity_inheritance.Applier;
+import com.mygdx.game.appliers.Applier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

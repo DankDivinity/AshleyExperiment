@@ -11,7 +11,7 @@ import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -30,12 +30,14 @@ import com.mygdx.game.utility.Components;
 public class WorldSystem extends IteratingSystem {
 
     World world;
+    TiledMap tiledMap;
     final float PIXELS_TO_METERS = 100f;
 
-    public WorldSystem() {
+    public WorldSystem(World _world, TiledMap _tiledMap) {
         super(Family.all(TransformComponent.class, MovementComponent.class, VisualComponent.class, BodyInfoComponent.class).get());
-        world = new World(new Vector2(0, 0), true);
-
+        world = _world;
+        tiledMap = _tiledMap;
+        
     }
 
     @Override

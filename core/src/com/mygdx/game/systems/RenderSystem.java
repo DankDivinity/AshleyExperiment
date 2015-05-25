@@ -14,6 +14,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.components.TransformComponent;
 import com.mygdx.game.components.VisualComponent;
 import com.mygdx.game.utility.Components;
@@ -27,10 +29,15 @@ public class RenderSystem extends EntitySystem {
     ImmutableArray<Entity> entities;
     SpriteBatch batch;
     Camera camera;
+    TiledMap tiledMap;
+    OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    public RenderSystem(Camera _camera, SpriteBatch _batch) {
+    public RenderSystem(TiledMap _tiledMap, Camera _camera, SpriteBatch _batch) {
+        tiledMap = _tiledMap;
         camera = _camera;
         batch = _batch;
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1f, batch);
+        
     }
 
     @Override
@@ -51,8 +58,11 @@ public class RenderSystem extends EntitySystem {
         VisualComponent visual;
         camera.update();
 
+        
+        
+        tiledMapRenderer.render();
         batch.setProjectionMatrix(camera.combined);
-        batch.begin();
+        batch.begin();    
         for (Entity e : entities) {
             transform = Components.transform.get(e);
             visual = Components.visual.get(e);
