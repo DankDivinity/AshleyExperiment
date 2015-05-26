@@ -11,8 +11,8 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -28,11 +28,11 @@ public class RenderSystem extends EntitySystem {
 
     ImmutableArray<Entity> entities;
     SpriteBatch batch;
-    Camera camera;
+    OrthographicCamera camera;
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    public RenderSystem(TiledMap _tiledMap, Camera _camera, SpriteBatch _batch) {
+    public RenderSystem(TiledMap _tiledMap, OrthographicCamera _camera, SpriteBatch _batch) {
         tiledMap = _tiledMap;
         camera = _camera;
         batch = _batch;
@@ -59,7 +59,7 @@ public class RenderSystem extends EntitySystem {
         camera.update();
 
         
-        
+        tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();    
@@ -67,7 +67,7 @@ public class RenderSystem extends EntitySystem {
             transform = Components.transform.get(e);
             visual = Components.visual.get(e);
 
-            batch.draw(visual.texture, transform.position.x, transform.position.y);
+            batch.draw(visual.texture, (int)transform.position.x, (int)transform.position.y);
         }
         batch.end();
     }
